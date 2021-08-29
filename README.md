@@ -1,4 +1,4 @@
-# league_stats
+# league-stat-tracker
 
 ## To run
 
