@@ -1,0 +1,31 @@
+version: "3"
+services:
+  app:
+    build:
+      context: ./
+    links:
+      - postgres
+    ports:
+      - "4000:4000"
+    environment:
+      - DATABASE_URL
+      - SECRET_KEY_BASE
+      - HOST
+      - PORT
+      - RIOT_API_KEY
+      - DEFAULT_QUEUE
+      - DEFAULT_SUMMONER
+    restart: always
+  postgres:
+    image: "postgres:12-alpine"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+      - /etc/passwd:/etc/passwd:ro
+    user: $POSTGRES_UID
+    environment:
+      - POSTGRES_DB
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+    restart: always

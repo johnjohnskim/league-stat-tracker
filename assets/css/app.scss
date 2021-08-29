@@ -1,0 +1,15 @@
+/* Main application css. */
+@import "./variables.scss";
+@import "./layout.scss";
+
+@import "./components/tooltip.scss";
+
+@import "./components/summary.scss";
+@import "./components/matches_component.scss";
+@import "./components/champions.scss";
+@import "./components/match.scss";
+@import "./components/team_scoreboard_component.scss";
+@import "./components/chart_component.scss";
+@import "./components/aram.scss";
+
+@import "../node_modules/nprogress/nprogress.css";

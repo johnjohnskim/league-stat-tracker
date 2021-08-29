@@ -1,0 +1,54 @@
+/* Tooltip */
+/* Add tooltips to elements by adding the attribute data-tooltip="tooltip text..." */
+
+$tooltip-background-color: #454b74;
+$tooltip-size: 8px;
+
+[data-tooltip] {
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+// Hide the tooltip content by default
+[data-tooltip]:before,
+[data-tooltip]:after {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+// Position the tooltip above the element
+[data-tooltip]:before {
+  position: absolute;
+  left: 150%;
+  bottom: -25%;
+  min-width: 15em;
+  padding: 0.5em 1em;
+  border-radius: 3px;
+  background-color: $tooltip-background-color;
+  font-size: 0.5em;
+  white-space: pre-wrap;
+  content: attr(data-tooltip);
+}
+
+// Make the tooltip look like a speech bubble
+[data-tooltip]:after {
+  position: absolute;
+  left: 125%;
+  bottom: 25%;
+  width: 0;
+  border-right: $tooltip-size solid $tooltip-background-color;
+  border-top: $tooltip-size solid transparent;
+  border-bottom: $tooltip-size solid transparent;
+  font-size: 0;
+  line-height: 0;
+  content: " ";
+}
+
+// Show the tooltip content on hover
+[data-tooltip]:hover:before,
+[data-tooltip]:hover:after {
+  visibility: visible;
+  opacity: 1;
+}

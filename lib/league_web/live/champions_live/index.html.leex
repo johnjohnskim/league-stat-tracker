@@ -1,0 +1,64 @@
+<form
+    phx-change="update_search"
+    onkeydown="return event.key != 'Enter';"
+    autocomplete="off"
+>
+  <input
+    type="text"
+    name="search"
+    class="search"
+    placeholder="Champion Name..."
+    minlength="2"
+    autofocus="true"
+    onfocus="this.value = '';"
+  >
+</form>
+
+<div class="search-results">
+
+<%= if Enum.empty?(@search_results) do %>
+  <div>No champions found</div>
+<% end %>
+
+<%= for {champion, {matching_indexes, _}} <- @search_results do %>
+  <div class="search-results__result">
+    <div class="search-results__name">
+      <img
+        src="<%= ExternalSites.generate_champion_icon_url(champion.key) %>"
+        alt="<%= champion.name %>"
+        title="<%= champion.name %>"
+        class="search-results__icon"
+      >
+    <%= raw(highlight_matching_graphemes(champion.name, matching_indexes)) %>
+    </div>
+
+    <a
+      href="<%= ExternalSites.generate_mobalytics_url(champion.key) %>"
+      class="search-results__link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Mobalytics
+    </a>
+
+    <a
+      href="<%= ExternalSites.generate_poro_url(champion.key) %>"
+      class="search-results__link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Poro
+    </a>
+
+    <a
+      href="<%= ExternalSites.generate_ugg_url(champion.key) %>"
+      class="search-results__link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      ARAM
+    </a>
+  </div>
+<% end %>
+
+</div>

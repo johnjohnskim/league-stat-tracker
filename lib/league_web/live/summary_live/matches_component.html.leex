@@ -1,0 +1,80 @@
+<table class="matches">
+  <tr class="matches__row">
+    <th>ID</th>
+    <th>Won?</th>
+    <th>Patch</th>
+    <th>Date</th>
+    <th>Length</th>
+    <th>KDA</th>
+    <th>K</th>
+    <th>D</th>
+    <th>A</th>
+    <th>CS</th>
+    <th>Given</th>
+    <th>Taken</th>
+    <th>Turret</th>
+    <th>Gold</th>
+    <th>Vision</th>
+    <th>Items</th>
+  </tr>
+
+<%= for match <- @matches do %>
+  <tr class="matches__row">
+    <td>
+      <a
+        href="<%= Routes.match_index_path(@socket, :index, match.id) %>"
+        class="matches__link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <%= match.id %>
+      </a>
+    </td>
+
+    <td>
+      <span class="<%= "matches__did-win--" <> if match.did_win, do: "pos", else: "neg" %>">
+        <%= if match.did_win, do: "yes", else: "no" %>
+      </span>
+    </td>
+
+    <td><%= match.game_version %></td>
+    <td><%= match.start_time %></td>
+    <td><%= match.duration %></td>
+    <td><%= Float.round(match.stats["kda"], 2) %></td>
+    <td><%= match.stats["kills"] %></td>
+    <td><%= match.stats["deaths"] %></td>
+    <td><%= match.stats["assists"] %></td>
+
+  <%= for stat <- [
+            "cs",
+            "champion_damage",
+            "damage_taken",
+            "turret_damage",
+            "gold_earned",
+            "vision_score"
+          ] do %>
+    <td>
+      <div class="matches__per-min-stat"><%= Float.round(match.stats["per_min_#{stat}"], 1) %></div>
+      <div class="matches__total-stat">(<%= match.stats[stat] %>)</div>
+    </td>
+  <% end %>
+
+    <td>
+      <div class="matches__items">
+        <%= for item <- match.stats["items"] do %>
+        <%= if item do %>
+          <img
+            src="<%= ExternalSites.generate_item_icon_url(item.id) %>"
+            alt="<%= item.name %>"
+            title="<%= item.name %>"
+            class="matches__item"
+          >
+        <% else %>
+          <span class="matches__item matches__item--empty"></span>
+        <% end %>
+        <% end %>
+      </div>
+    </td>
+  </tr>
+<% end %>
+</table>

@@ -1,0 +1,117 @@
+.aram-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
+#aram-id {
+  font-size: 1em;
+  margin-left: 0.5em;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+#aram-id-input {
+  display: none;
+}
+
+.info-tooltip {
+  height: 20px;
+  width: 20px;
+  margin-left: 0.4em;
+}
+
+.aram-players {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.aram-player {
+  padding: 0.4em;
+  width: 25%;
+}
+
+.aram-player--selected {
+  &:nth-child(1) {
+    .aram-champion-icon {
+      border: 5px #2796bc solid;
+    }
+  }
+  &:nth-child(2) {
+    .aram-champion-icon {
+      border: 5px #e9422e solid;
+    }
+  }
+}
+
+.aram-player--unselected {
+  .aram-champion-icon {
+    border: 5px $primary-background-color solid;
+  }
+}
+
+.aram-dice {
+  margin-top: 0.6em;
+}
+
+.aram-die {
+  width: 35px;
+}
+
+.aram-buttons {
+  margin-top: 1em;
+}
+
+.aram-button {
+  color: $primary-font-color;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  padding: 0.6em 1.1em;
+  font-size: 0.6em;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.38;
+  }
+}
+
+.aram-reroll {
+  background-color: #1999ed;
+  margin-right: 0.3em;
+
+  &:hover {
+    background-color: #118ada;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 10px #0d6fb0;
+  }
+}
+
+.aram-reset {
+  background-color: #e53935;
+
+  &:hover {
+    background-color: #d41f1b;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 10px #ae1916;
+  }
+}
+
+.aram-ban-list {
+  display: none;
+}

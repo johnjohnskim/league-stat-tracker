@@ -1,0 +1,16 @@
+<div>
+  <div phx-hook="TeamChartComponent" class="chart-dataset">
+    <div id="chart-gold-dataset">
+    <%= for {x, y} <- @gold do %>
+      <span data-x="<%= x %>" data-y="<%= y %>"></span>
+    <% end %>
+    </div>
+    <div id="chart-exp-dataset">
+    <%= for {x, y} <- @exp do %>
+      <span data-x="<%= x %>" data-y="<%= y %>"></span>
+    <% end %>
+    </div>
+  </div>
+
+  <canvas id="chart"></canvas>
+</div>

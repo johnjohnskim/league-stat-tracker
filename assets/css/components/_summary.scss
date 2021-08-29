@@ -1,0 +1,207 @@
+/* CSS for SummaryLive. */
+
+/* Header */
+.summary-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > div {
+    margin-left: 3rem;
+  }
+}
+
+.summary-header h1 {
+  font-size: 1.5em;
+}
+
+/* Ranked info */
+.ranked-tier {
+  font-size: 0.6em;
+}
+
+.ranked-tier__tier {
+  font-size: 1.25em;
+  font-weight: bold;
+
+  &--iron {
+    color: $iron-color;
+  }
+
+  &--bronze {
+    color: $bronze-color;
+  }
+
+  &--silver {
+    color: $silver-color;
+  }
+
+  &--gold {
+    color: $gold-color;
+  }
+
+  &--platinum {
+    color: $platinum-color;
+  }
+
+  &--diamond {
+    color: $diamond-color;
+  }
+
+  &--master {
+    color: $master-color;
+  }
+
+  &--grandmaster {
+    color: $grandmaster-color;
+  }
+
+  &--challenger {
+    color: $challenger-color;
+  }
+}
+
+.ranked-tier__win-percent {
+  margin-left: 0.3em;
+
+  &--pos {
+    color: $positive-color;
+  }
+
+  &--neg {
+    color: $negative-color;
+  }
+}
+
+/* Header select + button */
+.queue-select {
+  background-color: transparent;
+  color: $primary-font-color;
+  border: none;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+  padding: 0.5em 1.5em 0.3em 0;
+  font-size: 0.7em;
+
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    background-color: $primary-background-color;
+  }
+}
+
+.stats-update {
+  background-color: #1999ed;
+  color: $primary-font-color;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  padding: 0.6em 1.1em;
+  font-size: 0.6em;
+
+  &:hover {
+    background-color: #118ada;
+    cursor: pointer;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 10px #0d6fb0;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.38;
+  }
+
+  &.phx-click-loading {
+    cursor: not-allowed;
+    opacity: 0.38;
+  }
+}
+
+/* Champion Stats (Main) table */
+.champion-stats {
+  margin-top: 0.5em;
+  font-size: 0.7em;
+}
+
+.champion-stats__row {
+  &:hover {
+    background-color: $table-hover-color;
+  }
+
+  > th {
+    padding: 0.1em 0.7em;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  > td {
+    padding: 0.1em 0.7em;
+  }
+}
+
+.champion-stats__champion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.champion-stats__name {
+  display: flex;
+  align-items: center;
+  margin-right: 0.8em;
+}
+
+.champion-stats__champion-icon {
+  height: 1.5em;
+  width: 1.5em;
+  margin-right: 0.4em;
+}
+
+.champion-stats__win-percent {
+  font-size: 0.9em;
+
+  &--pos {
+    color: $positive-color;
+  }
+
+  &--neg {
+    color: $negative-color;
+  }
+}
+
+.champion-stats__breakdown {
+  font-size: 0.75em;
+}
+
+/* Promos */
+.ranked-promos {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 0.4em;
+}
+
+.ranked-promo {
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+
+  &--win {
+    background-color: $positive-color;
+  }
+
+  &--loss {
+    background-color: $negative-color;
+  }
+
+  &--none {
+    background-color: #e0e0e0;
+  }
+}

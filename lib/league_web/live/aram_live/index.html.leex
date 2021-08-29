@@ -1,0 +1,85 @@
+<header class="aram-header">
+  <h1>ARAM 1v1</h1>
+  <span id="aram-id" phx-hook="ARAMClipboard" title="Copy to clipboard">[<%= @id %>]</span>
+  <input
+    type="text"
+    id="aram-id-input"
+    value="<%= Endpoint.url() <> Routes.aram_index_path(@socket, :index, id: @id) %>"
+  >
+  <span data-tooltip="Matchups are based on champion data from poro.gg">
+    <img
+      src="<%= Routes.static_path(Endpoint, "/images/info_icon.png") %>"
+      class="info-tooltip"
+    >
+  </span>
+</header>
+
+<%= if @connected do %>
+
+<div class="aram-players">
+  <%= for {player, champion, rolls} <- [
+        {"1", @player_champions["1"], @player_rolls["1"]},
+        {"2", @player_champions["2"], @player_rolls["2"]}
+      ] do %>
+  <div class="aram-player
+              <%= if player == @current_player,
+                  do: "aram-player--selected",
+                  else: "aram-player--unselected" %>">
+    <div>
+      <img
+        src="<%= ExternalSites.generate_champion_icon_url(champion.key) %>"
+        alt="<%= champion.name %>"
+        title="<%= champion.name %>"
+        class="aram-champion-icon"
+      >
+      <div><%= champion.name %></div>
+    </div>
+
+    <div class="aram-dice">
+      <%= if rolls > 0 do %>
+        <%= for _ <- 1..rolls do %>
+          <img
+            src="<%= Routes.static_path(Endpoint, "/images/#{@player_colors[player]}_die.png") %>"
+            alt="dice"
+            title="dice"
+            class="aram-die"
+          >
+        <% end %>
+      <% end %>
+
+      <%= if @default_rolls - rolls > 0 do %>
+        <%= for _ <- 1..@default_rolls - rolls do %>
+          <img
+            src="<%= Routes.static_path(Endpoint, "/images/gray_die.png") %>"
+            alt="dice"
+            title="dice"
+            class="aram-die"
+          >
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<div class="aram-buttons">
+  <button
+    phx-click="reroll"
+    phx-throttle="250"
+    class="aram-button aram-reroll"
+    <%= if @player_rolls[@current_player] <= 0 or @current_player == "3", do: "disabled" %>
+  >
+    Reroll
+  </button>
+
+  <button
+    phx-click="reset"
+    phx-throttle="250"
+    class="aram-button aram-reset"
+    <%= if @current_player == "3", do: "disabled" %>
+  >
+    Reset
+  </button>
+</div>
+
+<% end %>

@@ -1,0 +1,119 @@
+<header class="summary-header">
+  <h1><%= @summoner.name %></h1>
+
+<%= if @ranked_tier do %>
+  <div class="ranked-tier">
+    <div>
+      <span class="ranked-tier__tier
+                   <%= "ranked-tier__tier--" <> String.downcase(@ranked_tier["tier"]) %>">
+        <%= @ranked_tier["tier"] %> <%= @ranked_tier["rank"] %>
+      </span>
+      <span>(<%= @ranked_tier["league_points"] %>LP)</span>
+    </div>
+
+    <div>
+      <span><%= @ranked_tier["wins"] %>W - <%= @ranked_tier["losses"] %>L</span>
+      <span class="ranked-tier__win-percent
+                   <%= "ranked-tier__win-percent" <> get_percent_class_mod(@ranked_tier["win_percent"]) %>">
+        (<%= format_percent(@ranked_tier["win_percent"])  %>)
+      </span>
+    </div>
+
+  <%= if @ranked_tier["promos"] do %>
+    <div class="ranked-promos">
+    <%= for promo <- String.graphemes(@ranked_tier["promos"]) do %>
+      <span class="ranked-promo <%= "ranked-promo--" <> get_promo_class_mod(promo) %>"></span>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+<% end %>
+
+  <div>
+    <form phx-change="select_queue">
+      <select name="queue" class="queue-select">
+      <%= for {type, name} <- @queues do %>
+        <option value="<%= type %>" <%= if type == @selected_queue, do: "selected" %>>
+          <%= name %>
+        </option>
+      <% end %>
+      </select>
+    </form>
+  </div>
+
+  <div>
+    <button phx-click="update_stats" phx-page-loading="" class="stats-update">Update</button>
+  </div>
+</header>
+
+<table class="champion-stats">
+  <tr class="champion-stats__row">
+  <%= for {name, attribute} <- @table_fields do %>
+    <th phx-click="sort_table" phx-value-sort_by="<%= attribute %>">
+      <%= name %> <%= add_sort_arrow(@sorted_by, attribute) %>
+    </th>
+  <% end %>
+  </tr>
+
+<%= for champion_stat <- @champion_stats do %>
+  <tr class="champion-stats__row">
+    <td phx-click="expand_champion" phx-value-champion_id="<%= champion_stat.champion.id %>">
+      <div class="champion-stats__champion">
+        <div class="champion-stats__name">
+          <img
+            src="<%= ExternalSites.generate_champion_icon_url(champion_stat.champion.key) %>"
+            alt="<%= champion_stat.champion.name %>"
+            title="<%= champion_stat.champion.name %>"
+            class="champion-stats__champion-icon"
+          >
+          <%= champion_stat.champion.name %>
+        </div>
+      <div><%= if @expanded_champions[champion_stat.champion.id], do: "⮛", else: "⮚" %></div>
+    </td>
+
+    <td><%= champion_stat.stats["matches"] %></td>
+
+    <td>
+      <div class="champion-stats__win-percent
+                  <%= "champion-stats__win-percent" <> get_percent_class_mod(champion_stat.stats["win_percent"]) %>">
+        <%= format_percent(champion_stat.stats["win_percent"]) %>
+      </div>
+      <div class="champion-stats__breakdown">
+        (<%= champion_stat.stats["wins"] %> - <%= champion_stat.stats["losses"] %>)
+      </div>
+    </td>
+
+  <%= for stat <- ["kda", "kills", "deaths", "assists"] do %>
+    <td><%= Float.round(champion_stat.stats["average_#{stat}"], 2) %></td>
+  <% end %>
+
+  <%= for stat <- [
+            "cs",
+            "champion_damage",
+            "damage_taken",
+            "turret_damage",
+            "gold_earned",
+            "vision_score"
+          ] do %>
+    <td><%= Float.round(champion_stat.stats["average_#{stat}"], 1) %></td>
+  <% end %>
+  </tr>
+
+<%= if @expanded_champions[champion_stat.champion.id] do %>
+  <tr>
+    <td colspan="13">
+      <%= live_component(
+            @socket,
+            LeagueWeb.SummaryLive.MatchesComponent,
+            id: champion_stat.champion.id,
+            summoner: @summoner,
+            queue: @selected_queue,
+            items: @items
+          )
+      %>
+    </td>
+  </tr>
+<% end %>
+<% end %>
+
+</table>

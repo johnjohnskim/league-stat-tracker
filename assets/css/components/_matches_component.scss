@@ -1,0 +1,60 @@
+/* CSS for MatchesComponent. */
+
+.matches {
+  font-size: 0.85em;
+  width: 100%;
+  margin-top: 0.75em;
+}
+
+.matches__row {
+  &:hover {
+    background-color: $table-hover-color;
+  }
+
+  > th {
+    padding: 0.1em 0.6em;
+  }
+
+  > td {
+    padding: 0.1em 0.6em;
+  }
+}
+
+.matches__link {
+  color: $primary-font-color;
+}
+
+.matches__did-win {
+  &--pos {
+    color: $positive-color;
+  }
+
+  &--neg {
+    color: $negative-color;
+  }
+}
+
+.matches__per-min-stat {
+  font-size: 0.9em;
+}
+
+.matches__total-stat {
+  font-size: 0.8em;
+}
+
+.matches__items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.matches__item {
+  margin-right: 0.1em;
+  height: 1.35em;
+  width: 1.35em;
+
+  &--empty {
+    display: inline-block;
+    background-color: #121212;
+  }
+}

@@ -1,0 +1,19 @@
+<div>
+  <div phx-hook="PlayerChartComponent" class="chart-dataset">
+  <%= for {id, champion, winner, values} <- @data do %>
+    <div
+        id="chart-<%= id %>-dataset"
+        data-participant-id="<%= id %>"
+        data-label="<%= champion.name %>"
+        data-champion-icon="<%= ExternalSites.generate_champion_icon_url(champion.key) %>"
+        data-winner="<%= winner %>"
+    >
+    <%= for {x, y} <- values do %>
+      <span data-x="<%= x %>" data-y="<%= y %>"></span>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+
+  <canvas id="chart"></canvas>
+</div>

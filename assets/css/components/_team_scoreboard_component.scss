@@ -1,0 +1,172 @@
+/* CSS for TeamComponent. */
+
+.team-table {
+  td {
+    padding: 0.1em 0.65em;
+  }
+
+  tr:hover {
+    background-color: $table-hover-color;
+  }
+}
+
+.team-table__icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-table__icon {
+  height: 2em;
+  width: 2em;
+
+  &--empty {
+    opacity: 0.25;
+  }
+}
+
+.team-table__items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.team-table__item {
+  margin-right: 0.2em;
+  height: 1.5em;
+  width: 1.5em;
+
+  &--empty {
+    display: inline-block;
+    background-color: #121212;
+  }
+}
+
+.team-table__dual-value-cell {
+  font-size: 0.9em;
+
+  > div:nth-child(2) {
+    font-size: 0.9em;
+  }
+}
+
+.team-table__kills {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+    margin-right: 0.65em;
+  }
+}
+
+.champion-kill {
+  height: 2em;
+  width: 2em;
+  position: relative;
+}
+
+.champion-kill__sigil-background {
+  position: absolute;
+  top: 1.3em;
+  left: 1.2em;
+  width: 60%;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 15% 15%;
+}
+
+.champion-kill__sigil {
+  position: absolute;
+  top: 1.1em;
+  left: 0.8em;
+  width: 100%;
+  height: 100%;
+  color: $primary-font-color;
+}
+
+.champion-kill__multiplier {
+  font-size: 0.7em;
+}
+
+.champion-kill__number {
+  font-size: 0.85em;
+}
+
+/* Table column widths */
+.team-table__col:nth-child(1) {
+  width: 5%;
+}
+
+.team-table__col:nth-child(2) {
+  width: 25%;
+}
+
+.team-table__col:nth-child(3) {
+  width: 15%;
+}
+
+.team-table__col:nth-child(4) {
+  width: 15%;
+}
+
+.team-table__col:nth-child(5) {
+  width: 5%;
+}
+
+.team-table__col:nth-child(6) {
+  width: 5%;
+}
+
+.team-table__col:nth-child(7) {
+  width: 5%;
+}
+
+.team-table__col:nth-child(8) {
+  width: 5%;
+}
+
+.team-table__col:nth-child(9) {
+  width: 20%;
+}
+
+/* Rank/tier colors */
+.team-table__rank {
+  font-size: 0.9em;
+
+  &--iron {
+    color: $iron-color;
+  }
+
+  &--bronze {
+    color: $bronze-color;
+  }
+
+  &--silver {
+    color: $silver-color;
+  }
+
+  &--gold {
+    color: $gold-color;
+  }
+
+  &--platinum {
+    color: $platinum-color;
+  }
+
+  &--diamond {
+    color: $diamond-color;
+  }
+
+  &--master {
+    color: $master-color;
+  }
+
+  &--grandmaster {
+    color: $grandmaster-color;
+  }
+
+  &--challenger {
+    color: $challenger-color;
+  }
+}

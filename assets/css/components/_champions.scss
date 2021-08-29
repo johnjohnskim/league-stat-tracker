@@ -1,0 +1,53 @@
+/* CSS for ChampionsLive. */
+
+.search {
+  background-color: transparent;
+  color: $primary-font-color;
+  font-size: 1em;
+  width: 10em;
+  border: none;
+  border-bottom: 2px solid hsla(0, 0%, 100%, 0.35);
+  padding: 0.5em 1.5em 0.3em 0;
+  margin-bottom: 1em;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search-results {
+  min-height: 16em;
+}
+
+.search-results__result {
+  display: flex;
+  justify-content: space-between;
+  width: 20em;
+  margin-bottom: 0.2em;
+}
+
+.search-results__name {
+  display: flex;
+  align-items: center;
+  width: 9em;
+}
+
+.search-results__letter {
+  &--matched {
+    font-weight: 600;
+  }
+
+  &--unmatched {
+    font-weight: 300;
+  }
+}
+
+.search-results__icon {
+  height: 1em;
+  width: 1em;
+  margin-right: 0.4em;
+}
+
+.search-results__link {
+  color: $primary-font-color;
+}

@@ -1,0 +1,42 @@
+/* CSS for ChartComponent. */
+
+.chart-dataset {
+  display: none;
+}
+
+.tooltip__title {
+  font-size: 1.5em;
+  padding-bottom: 0.5em;
+}
+
+.tooltip__row {
+  display: flex;
+  align-items: center;
+  min-width: 7.5em;
+
+  &--winner {
+    color: $positive-color;
+  }
+
+  &--loser {
+    color: $negative-color;
+  }
+}
+
+.tooltip__color-span {
+  display: inline-block;
+  width: 0.5em;
+  height: 3.5em;
+  border-width: 2px;
+}
+
+.tooltip__icon {
+  height: 3.5em;
+  width: 3.5em;
+  margin-right: 0.5em;
+}
+
+.tooltip__text {
+  font-size: 1.3em;
+  font-weight: 500;
+}

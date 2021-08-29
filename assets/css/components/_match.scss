@@ -1,0 +1,81 @@
+/* CSS for MatchLive. */
+
+.match {
+  font-size: 0.7em;
+  min-width: 60%;
+
+  h2 {
+    font-size: 1.2em;
+  }
+}
+
+.match__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.05em;
+  margin-bottom: 0.5em;
+
+  > div {
+    margin-left: 1.5em;
+  }
+}
+
+.match__time {
+  font-size: 0.9em;
+}
+
+.match__tab {
+  border: none;
+  padding: 0.4em 1.2em;
+  color: #8e99f3;
+  background-color: #f0f8ff;
+  font-size: 0.85em;
+  text-transform: uppercase;
+
+  &--selected {
+    color: $primary-font-color;
+    background-color: #5c6bc0;
+    font-weight: bold;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.match__content {
+  min-height: 60vh;
+}
+
+.match__chart-tabs {
+  margin: 1em 0 1em 0;
+}
+
+.match__chart-tab {
+  border: none;
+  padding: 0.4em 1.2em;
+  color: #a2acac;
+  background-color: #3c4248;
+  font-size: 0.8em;
+  text-transform: uppercase;
+
+  &--selected {
+    color: $primary-font-color;
+    background-color: #475b6d;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.match__team-name {
+  &--winner {
+    color: $positive-color;
+  }
+
+  &--loser {
+    color: $negative-color;
+  }
+}

@@ -1,0 +1,106 @@
+<table class="team-table">
+  <colgroup>
+  <%= for _ <- 0..8 do %>
+    <col class="team-table__col" />
+  <% end %>
+  </colgroup>
+
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Tier</th>
+    <th>Items</th>
+    <th>KDA</th>
+    <th>Damage</th>
+    <th>Gold</th>
+    <th>CS</th>
+    <th>Kill Breakdown</th>
+  </tr>
+
+<%= for participant <- @participants do %>
+  <tr>
+    <td>
+      <div class="team-table__icon-container">
+        <img
+          src="<%= ExternalSites.generate_champion_icon_url(participant.champion.key) %>"
+          alt="<%= participant.champion.name %>"
+          title="<%= participant.champion.name %>"
+          class="team-table__icon"
+        >
+      </div>
+    </td>
+
+    <td><%= participant.name %></td>
+
+    <td>
+    <%= if participant.solo_queue do %>
+      <span class="team-table__rank
+                  <%= "team-table__rank--" <> String.downcase(participant.solo_queue.tier) %>">
+        <%= participant.solo_queue.tier %> <%= participant.solo_queue.rank %>
+      </span>
+    <% end %>
+    </td>
+
+    <td>
+      <div class="team-table__items">
+      <%= for item <- Enum.slice(participant.items, 0..5) do %>
+      <%= if item do %>
+        <img
+          src="<%= ExternalSites.generate_item_icon_url(item.id) %>"
+          alt="<%= item.name %>"
+          title="<%= item.name %>"
+          class="team-table__item"
+        >
+      <% else %>
+        <span class="team-table__item team-table__item--empty"></span>
+      <% end %>
+      <% end %>
+      </div>
+    </td>
+
+    <td class="team-table__dual-value-cell">
+      <div><%= "#{participant.kills}/#{participant.deaths}/#{participant.assists}" %></div>
+      <div><%= Float.round(participant.kda, 2) %></div>
+    </td>
+
+    <td class="team-table__dual-value-cell">
+      <div><%= participant.champion_damage %></div>
+      <div>(<%= Float.round(participant.champion_damage_per_min, 1) %>)</div>
+    </td>
+
+    <td class="team-table__dual-value-cell">
+      <div><%= participant.gold_earned %></div>
+      <div>(<%= Float.round(participant.gold_earned_per_min, 1) %>)</div>
+    </td>
+
+    <td class="team-table__dual-value-cell">
+      <div><%= participant.cs %></div>
+      <div>(<%= Float.round(participant.cs_per_min, 1) %>)</div>
+    </td>
+
+    <td>
+      <div class="team-table__kills">
+      <%= for %{champion: champion, kills: kills} <- participant.kill_breakdown do %>
+        <div class="champion-kill">
+          <img
+            src="<%= ExternalSites.generate_champion_icon_url(champion.key) %>"
+            alt="<%= champion.name %>"
+            title="<%= champion.name %>"
+            class="team-table__icon <%= if kills == 0, do: "team-table__icon--empty"%>"
+          >
+
+        <%= if kills > 0 do %>
+          <div class="champion-kill__sigil-background"></div>
+          <div class="champion-kill__sigil">
+            <span class="champion-kill__multiplier">×</span><span class="champion-kill__number"><%= kills %></span>
+          </div>
+        <% end %>
+
+        </div>
+      <% end %>
+      </div>
+    </td>
+
+  </tr>
+<% end %>
+</table>

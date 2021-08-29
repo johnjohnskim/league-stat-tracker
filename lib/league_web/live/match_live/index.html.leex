@@ -1,0 +1,105 @@
+<%= if !@match do %>
+<div>Match not found.</div>
+<% end %>
+
+<%= if @match do %>
+
+<div class="match">
+  <header class="match__header">
+    <div><%= @match.game_mode %></div>
+    <div class="match__time"><%= @match.start_time %> (<%= @match.duration %>)</div>
+    <div>Patch <%= @match.game_version %></div>
+  </header>
+
+  <div class="match__tabs">
+  <%= for tab <- @tabs do %>
+    <button
+      phx-click="switch_to_tab"
+      phx-value-tab="<%= tab %>"
+      class="match__tab match__tab--<%= if @selected_tab == tab, do: "selected", else: "unselected" %>"
+    >
+      <%= tab %>
+    </button>
+  <% end %>
+  </div>
+
+  <div class="match__content">
+  <%= case @selected_tab do %>
+  <% :scoreboard -> %>
+    <div class="match__team">
+      <h2 class="<%= @red_team_class %>">Red Team</h2>
+      <%= live_component(
+            @socket,
+            LeagueWeb.MatchLive.TeamScoreboardComponent,
+            id: "red",
+            participants: @red_team
+          )
+      %>
+    </div>
+
+    <div class="match__team">
+      <h2 class="<%= @blue_team_class %>">Blue Team</h2>
+      <%= live_component(
+            @socket,
+            LeagueWeb.MatchLive.TeamScoreboardComponent,
+            id: "blue",
+            participants: @blue_team
+          )
+      %>
+    </div>
+
+  <% :charts -> %>
+    <div class="match__chart-tabs">
+    <%= for {tab, tab_name} <- @chart_tabs do %>
+      <button
+        phx-click="switch_to_chart_tab"
+        phx-value-tab="<%= tab %>"
+        class="match__chart-tab
+               match__chart-tab--<%= if @selected_chart_tab == tab, do: "selected", else: "unselected" %>"
+      >
+        <%= tab_name %>
+      </button>
+    <% end %>
+    </div>
+
+    <div>
+    <%= case @selected_chart_tab do %>
+    <% :teams -> %>
+      <%= live_component(
+        @socket,
+        LeagueWeb.MatchLive.TeamChartComponent,
+        id: "teams",
+        timestamps: @match.timelines.timestamps,
+        gold: @match.timelines.team_gold_diff,
+        exp: @match.timelines.team_exp_diff
+      )
+      %>
+
+    <% :gold -> %>
+      <%= live_component(
+        @socket,
+        LeagueWeb.MatchLive.PlayerChartComponent,
+        id: "gold",
+        participants: @match.participants,
+        timestamps: @match.timelines.timestamps,
+        data: @match.timelines.participants_gold
+      )
+      %>
+
+    <% :exp -> %>
+      <%= live_component(
+        @socket,
+        LeagueWeb.MatchLive.PlayerChartComponent,
+        id: "exp",
+        participants: @match.participants,
+        timestamps: @match.timelines.timestamps,
+        data: @match.timelines.participants_exp
+      )
+      %>
+    <% end %>
+    </div>
+  <% end %>
+  </div>
+</div>
+
+<% end %>
